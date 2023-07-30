@@ -39,7 +39,7 @@ android {
         applicationId "com.example.ams_printer"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -61,4 +61,6 @@ flutter {
 
 dependencies{
     implementation files('src/main/java/lib/printer_lib.jar')
+
+     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
