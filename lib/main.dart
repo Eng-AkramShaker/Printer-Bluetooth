@@ -1,13 +1,13 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, use_build_context_synchronously
 
 import 'dart:io';
-
-import 'package:ams_printer/printer_manager.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_scan_bluetooth/flutter_scan_bluetooth.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'bluetooth/printer_manager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +21,9 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: PrintersView(),
+      routes: {
+        // 'Key_aa': (context) => const aa(),
+      },
     );
   }
 }
@@ -105,55 +108,19 @@ class _PrintersViewState extends State<PrintersView> {
             builder: (context) => Column(
               children: [
                 Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 175, 224, 177),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
                   child: Column(
                     children: [
-                      Text(_selectedDevice!.name,
-                          style: const TextStyle(
-                              color: Colors.lightBlue,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold)),
-                      const SizedBox(
-                        height: 10,
+                      Padding(
+                        padding: const EdgeInsets.all(13),
+                        child: Text(_selectedDevice!.name,
+                            style: const TextStyle(
+                                color: Colors.lightBlue,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold)),
                       ),
-                      Text(_selectedDevice!.address,
-                          style:
-                              const TextStyle(color: Colors.grey, fontSize: 14))
                     ],
                   ),
                 ),
-                const SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    MaterialButton(
-                      onPressed: () {
-                        PrinterManager.printImg(imgFile.path);
-                      },
-                      color: Colors.lightBlue,
-                      child: const Text(
-                        "إطبع",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    MaterialButton(
-                      onPressed: () {
-                        PrinterManager.connect(_selectedDevice!.address);
-                      },
-                      color: Colors.lightBlue,
-                      child: const Text(
-                        "أتصال",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
             fallback: (context) => Container(
@@ -163,17 +130,13 @@ class _PrintersViewState extends State<PrintersView> {
 
           // ---------------------------------------------------------------------------------------------------
 
-          const SizedBox(
-            height: 15,
-          ),
+          const SizedBox(height: 15),
           Container(
             height: 7,
             width: double.infinity,
             color: Colors.red,
           ),
-          const SizedBox(
-            height: 15,
-          ),
+          const SizedBox(height: 15),
 
           // =======================================================================================================
 
@@ -201,6 +164,18 @@ class _PrintersViewState extends State<PrintersView> {
                   });
             },
             child: const Text("بحث"),
+          ),
+
+          // =======================================================================================================
+
+          ElevatedButton(
+            onPressed: () async {
+              if (_selectedDevice?.name != null) {
+                await PrinterManager.connect(_selectedDevice!.address);
+                await PrinterManager.printImg(imgFile.path);
+              }
+            },
+            child: const Text("تاكيد"),
           )
         ],
       ),

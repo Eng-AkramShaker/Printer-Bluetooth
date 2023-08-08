@@ -1,28 +1,18 @@
 import 'package:flutter/services.dart';
 
-class PrinterManager{
+class PrinterManager {
   static final _platform = MethodChannel(PrinterStrings.channel);
 
-  static connect(String mac)async{
+  static connect(String mac) async {
     _platform.invokeMethod(
-        PrinterStrings.connectCommand,
-      {
-        PrinterStrings.macArg : mac
-      }
-    );
+        PrinterStrings.connectCommand, {PrinterStrings.macArg: mac});
   }
 
-  static printImg(String imgPath)async{
+  static printImg(String imgPath) async {
     _platform.invokeMethod(
-        PrinterStrings.printCommand,
-        {
-          PrinterStrings.imgPathArg : imgPath
-        }
-    );
+        PrinterStrings.printCommand, {PrinterStrings.imgPathArg: imgPath});
   }
 }
-
-
 
 class PrinterStrings {
   // channel name
@@ -34,5 +24,3 @@ class PrinterStrings {
   static String macArg = "printer_mac";
   static String imgPathArg = "img_path";
 }
-
-
