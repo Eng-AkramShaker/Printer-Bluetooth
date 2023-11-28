@@ -1,8 +1,4 @@
 {
-    "cSpell.words": [
-        "ARGB",
-        "cupertino",
-        "تحديد",
-        "طابعة"
-    ]
+  "cSpell.words": ["ARGB", "cupertino", "تحديد", "طابعة"],
+  "java.configuration.updateBuildConfiguration": "automatic"
 }
