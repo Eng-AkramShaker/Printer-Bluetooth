@@ -102,7 +102,8 @@ class _PrintersViewState extends State<PrintersView> {
         children: [
           const SizedBox(height: 100),
 
-          // ---------------------------------------------------------------------------------------------------
+          // -------------------------------------------------------------------------------------------------
+
           ConditionalBuilder(
             condition: _selectedDevice != null,
             builder: (context) => Column(
@@ -112,11 +113,13 @@ class _PrintersViewState extends State<PrintersView> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(13),
-                        child: Text(_selectedDevice!.name,
-                            style: const TextStyle(
-                                color: Colors.lightBlue,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          _selectedDevice!.name,
+                          style: const TextStyle(
+                              color: Colors.lightBlue,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),
@@ -138,7 +141,7 @@ class _PrintersViewState extends State<PrintersView> {
           ),
           const SizedBox(height: 15),
 
-          // =======================================================================================================
+          // ===================================================================================================
 
           ElevatedButton(
             onPressed: () {
